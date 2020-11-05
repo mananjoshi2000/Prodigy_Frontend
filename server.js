@@ -1,11 +1,11 @@
-require('dotenv/types').config();
+const path=require('path');
 const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
-import path from 'path';
+
 
 const users = {};
 
@@ -62,9 +62,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
+}
 
 const port=process.env.PORT || 8000;
 
 server.listen(port, () => console.log(`server is running on port ${port}`));
-
-
