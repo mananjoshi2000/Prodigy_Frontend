@@ -71,8 +71,8 @@ const Room = (props) => {
                         peerID: X.socketID,
                         peer,
                     })
-                    
-                    peers.push(peer);
+
+                    peers.push({peer:peer,name:X.name,GID:X.GID});
                 })
                 setPeers(peers);
             })
@@ -84,7 +84,13 @@ const Room = (props) => {
                     peer,
                 })
 
-                setPeers(users => [...users, peer]);
+                const obj={
+                    peer:peer,
+                    name:payload.name,
+                    GID:payload.GID
+                }
+
+                setPeers(users => [...users, obj]);
             });
 
             socketRef.current.on("receiving returned signal", payload => {
@@ -102,7 +108,7 @@ const Room = (props) => {
         });
 
         peer.on("signal", signal => {
-            socketRef.current.emit("sending signal", { userToSignal, callerID, signal })
+            socketRef.current.emit("sending signal", { userToSignal, callerID, signal, name:userCookie.name, GID:userCookie.GID})
         })
 
         return peer;
@@ -127,9 +133,13 @@ const Room = (props) => {
     return (
         <Container>
             <StyledVideo muted ref={userVideo} autoPlay playsInline />
-            {peers.map((peer, index) => {
+            <h1>{userCookie.name}</h1>
+            {peers.map((row, index) => {
                 return (
-                    <Video key={index} peer={peer} />
+                    <div>
+                        <Video key={index} peer={row.peer} />
+                        <h1>{row.name}</h1>
+                    </div>
                 );
             })}
         </Container>

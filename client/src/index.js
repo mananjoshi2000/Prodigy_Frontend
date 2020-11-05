@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
 import GoogleLogin from 'react-google-login';
 import Home from './Home.js';
+require('dotenv/types').config();
 
 const Connect = () => {
 
@@ -12,7 +13,8 @@ const Connect = () => {
   const cookies = new Cookies();
   const userCookie=cookies.get('userCookie');
   const [user,setUser]=useState(userCookie?true:false);
-
+  console.log("From ENV:",process.env.CLIENT_ID);
+  const client_Id=process.env.CLIENT_ID || "39603121170-058n9lara0vqjr2fomfv4nndgsd3aarm.apps.googleusercontent.com";
   const responseGoogle = (response)=>{
       console.log("Success");
       console.log(response);
@@ -36,7 +38,7 @@ const Connect = () => {
     <CookiesProvider>
           <React.StrictMode>
             {user ? <Home/> : <GoogleLogin
-    clientId="39603121170-058n9lara0vqjr2fomfv4nndgsd3aarm.apps.googleusercontent.com"
+    clientId={client_Id}
     buttonText="Login"
     onSuccess={responseGoogle}
     onFailure={fail}

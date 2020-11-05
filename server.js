@@ -1,10 +1,11 @@
-require('dotenv').config();
+require('dotenv/types').config();
 const express = require("express");
 const http = require("http");
 const app = express();
 const server = http.createServer(app);
 const socket = require("socket.io");
 const io = socket(server);
+import path from 'path';
 
 const users = {};
 
@@ -35,7 +36,7 @@ io.on('connection', socket => {
     });
 
     socket.on("sending signal", payload => {
-        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
+        io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID, name:payload.name, GID: payload.GID });
     });
 
     socket.on("returning signal", payload => {
@@ -53,6 +54,17 @@ io.on('connection', socket => {
 
 });
 
-server.listen(process.env.PORT || 8000, () => console.log('server is running on port 8000'));
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  // Set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+
+const port=process.env.PORT || 8000;
+
+server.listen(port, () => console.log(`server is running on port ${port}`));
 
 
