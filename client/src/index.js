@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
 import GoogleLogin from 'react-google-login';
 import Home from './Home.js';
-require('dotenv/types').config();
+require('dotenv').config();
 
 const Connect = () => {
 
