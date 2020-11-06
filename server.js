@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path=require('path');
 const express = require("express");
 const http = require("http");
@@ -20,6 +21,7 @@ io.on('connection', socket => {
             GID:userDetail.GID
         }
         if (users[roomID]) {
+            users[roomID]=Array.from(new Set(users[roomID]))
             const length = users[roomID].length;
             if (length === 4) {
                 socket.emit("room full");
@@ -47,21 +49,20 @@ io.on('connection', socket => {
         const roomID = socketToRoom[socket.id];
         let room = users[roomID];
         if (room) {
-            room = room.filter(id => id !== socket.id);
+            room = room.filter((row) => row.socketID !== socket.id);
             users[roomID] = room;
         }
+        socket.broadcast.emit('user left',socket.id);
     });
 
 });
 
 // Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
+if(process.env.PROD){
+    app.use(express.static(path.join(__dirname,'./client/build')));
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'./client/build/index.html'));
+    })
 }
 
 const port=process.env.PORT || 8000;
