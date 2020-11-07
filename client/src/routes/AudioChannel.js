@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
 import{ Card,CardContent,CardMedia,Button,Typography} from '@material-ui/core';
 import { v1 as uuid } from "uuid";
+require('dotenv').config();
 
 const Container = styled.div`
     padding: 20px;
@@ -138,13 +139,13 @@ const AudioChannel = (props) => {
                 iceServers: [
                     {
                         urls: "stun:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        username: process.env.USER_NAME,
+                        credential: process.env.PASSWORD
                     },
                     {
                         urls: "turn:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        username: process.env.USER_NAME,
+                        credential: process.env.PASSWORD
                     }
                 ]
             },
