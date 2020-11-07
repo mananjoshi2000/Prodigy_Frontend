@@ -131,7 +131,10 @@ const AudioChannel = (props) => {
         })
     }
 
-    console.log(process.env.USER_NAME,process.env.PASSWORD)
+    const username_stun=process.env.USER_NAME || "nmakadiya1@gmail.com";
+    const passsword_stun=process.env.PASSWORD || "123456789";
+
+    console.log(username_stun,passsword_stun);
 
      function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
@@ -141,13 +144,13 @@ const AudioChannel = (props) => {
                 iceServers: [
                     {
                         urls: "stun:numb.viagenie.ca",
-                        username: process.env.USER_NAME,
-                        credential: process.env.PASSWORD
+                        username: username_stun,
+                        credential: passsword_stun
                     },
                     {
                         urls: "turn:numb.viagenie.ca",
-                        username: process.env.USER_NAME,
-                        credential: process.env.PASSWORD
+                        username: username_stun,
+                        credential: passsword_stun
                     }
                 ]
             },
@@ -170,13 +173,13 @@ const AudioChannel = (props) => {
                 iceServers: [
                     {
                         urls: "stun:numb.viagenie.ca",
-                        username: process.env.USER_NAME,
-                        credential: process.env.PASSWORD
+                        username: username_stun,
+                        credential: passsword_stun
                     },
                     {
                         urls: "turn:numb.viagenie.ca",
-                        username: process.env.USER_NAME,
-                        credential: process.env.PASSWORD
+                        username: username_stun,
+                        credential: passsword_stun
                     }
                 ]
             },
