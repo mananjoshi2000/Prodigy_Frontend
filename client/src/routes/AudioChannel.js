@@ -131,6 +131,8 @@ const AudioChannel = (props) => {
         })
     }
 
+    console.log(process.env.USER_NAME,process.env.PASSWORD)
+
      function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
@@ -168,13 +170,13 @@ const AudioChannel = (props) => {
                 iceServers: [
                     {
                         urls: "stun:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        username: process.env.USER_NAME,
+                        credential: process.env.PASSWORD
                     },
                     {
                         urls: "turn:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        username: process.env.USER_NAME,
+                        credential: process.env.PASSWORD
                     }
                 ]
             },
