@@ -139,7 +139,7 @@ const AudioChannel = (props) => {
      function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
-            trickle: true,
+            trickle: false,
               config: {
                iceServers: [
                     {
@@ -176,7 +176,7 @@ const AudioChannel = (props) => {
     function addPeer(incomingSignal, callerID, stream) {
         const peer = new Peer({
             initiator: false,
-            trickle: true,
+            trickle: false,
               config: {
               iceServers: [
                     {
