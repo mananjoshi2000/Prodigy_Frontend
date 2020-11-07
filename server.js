@@ -21,7 +21,6 @@ io.on('connection', socket => {
             GID:userDetail.GID
         }
         if (users[roomID]) {
-            users[roomID]=Array.from(new Set(users[roomID]))
             const length = users[roomID].length;
             if (length === 4) {
                 socket.emit("room full");
@@ -33,7 +32,6 @@ io.on('connection', socket => {
         }
         socketToRoom[socket.id] = roomID;
         const usersInThisRoom = users[roomID].filter((X) => X.socketID !== socket.id);
-
         socket.emit("all users", usersInThisRoom);
     });
 
@@ -46,6 +44,7 @@ io.on('connection', socket => {
     });
 
     socket.on('disconnect', () => {
+        console.log("Called....");
         const roomID = socketToRoom[socket.id];
         let room = users[roomID];
         if (room) {

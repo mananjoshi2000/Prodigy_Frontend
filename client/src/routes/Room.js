@@ -4,6 +4,11 @@ import { unmountComponentAtNode } from "react-dom";
 import { v1 as uuid } from "uuid";
 import Container from '@material-ui/core/Container';
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
+
 
 import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
@@ -12,16 +17,7 @@ import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
 
 export default function Room(props) {
-    const [isAudio,setAudio]=useState(false);
     const roomID = props.match.params.roomID;
-    console.log(isAudio);
-    const Join=()=>{
-        setAudio(true);
-    }
-    const Leave=()=>{
-        unmountComponentAtNode(document.getElementById('Audio'))
-        setAudio(false);
-    }
 
     Quill.register('modules/cursors', QuillCursors)
 
@@ -35,16 +31,8 @@ export default function Room(props) {
     const provider = new WebsocketProvider('wss://shielded-sierra-61478.herokuapp.com',`${roomID}`, ydoc)
     const type = ydoc.getText(`${roomID}`);
 
-
-    // const EditorContainer = document.createElement('div')
-
     useEffect(()=>{
         const EditorContainer = document.getElementById("editor");
-
-        // EditorContainer.setAttribute('id', 'editor')
-        // document.body.insertBefore(EditorContainer, null)
-
-
 
         var toolbarOptions = [
             ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -85,17 +73,6 @@ export default function Room(props) {
             color: 'blue'
         });
 
-        //   const connectBtn = document.getElementById('y-connect-btn')
-        //   connectBtn.addEventListener('click', () => {
-        //     if (provider.shouldConnect) {
-        //       provider.disconnect()
-        //       connectBtn.textContent = 'Connect'
-        //     } else {
-        //       provider.connect()
-        //       connectBtn.textContent = 'Disconnect'
-        //     }
-        //   })
-
         // @ts-ignore
         window.example = { provider, ydoc, type, binding, Y }
     });
@@ -103,12 +80,19 @@ export default function Room(props) {
 
     return (
         <div>
-            <button onClick={Join} >Join Audio Channel</button>
-            <button onClick={Leave}>Leave Audio Channel</button>
-            <Container id="Audio">
-            {isAudio?<AudioChannel key={uuid()} room={roomID}/>:null}
-            </Container>
-            <div id="editor"></div>
+            <Grid
+            container
+            direction="row"
+            justify="center"
+            alignItems="center"
+            >
+                <Grid item xs={4}>
+                    <AudioChannel room={roomID}/>
+                </Grid>
+                <Grid item xs={8}>
+                    <div id="editor"></div>
+                </Grid>
+            </Grid>
         </div>
     )
 }
