@@ -142,21 +142,14 @@ const AudioChannel = (props) => {
             trickle: false,
               config: {
                iceServers: [
-                     {
-                        urls:"stun:numb.viagenie.ca:443",
-                        username:username_stun,
-                        credential:passsword_stun
-                    },
-                    {
-                        urls:"turn:numb.viagenie.ca:80",
-                        username:username_stun,
-                        credential:passsword_stun
-                    },
-                     {
-                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
-                        username:username_stun,
-                        credential:passsword_stun
-                    }
+                   {
+                        urls:"stun:stun.l.google.com:19302"
+                   },
+                   {
+                        urls:"turn:43.241.146.55:3478",
+                        username:"neelmakadiya",
+                        credential:"123456"
+                   }    
                 ],
             },
             stream,
@@ -177,20 +170,13 @@ const AudioChannel = (props) => {
               config: {
               iceServers: [
                      {
-                        urls:"stun:numb.viagenie.ca:443",
-                        username:username_stun,
-                        credential:passsword_stun
-                    },
-                    {
-                        urls:"turn:numb.viagenie.ca:80",
-                        username:username_stun,
-                        credential:passsword_stun
-                    },
-                     {
-                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
-                        username:username_stun,
-                        credential:passsword_stun
-                    }
+                        urls:"stun:stun.l.google.com:19302"
+                   },
+                   {
+                        urls:"turn:43.241.146.55:3478",
+                        username:"neelmakadiya",
+                        credential:"123456"
+                   }
                 ],
             },
             stream,
