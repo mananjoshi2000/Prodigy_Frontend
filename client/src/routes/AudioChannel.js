@@ -132,24 +132,34 @@ const AudioChannel = (props) => {
     }
 
     const username_stun=process.env.USER_NAME || "nmakadiya1@gmail.com";
-    const passsword_stun=process.env.PASSWORD || "123456789";
+    const passsword_stun=process.env.PASSWORD || "12345678";
 
     console.log("Changed : ",username_stun,passsword_stun);
 
      function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
-            trickle: false,
+            trickle: true,
               config: {
                iceServers: [
-                   {
+                    {
                         urls:"stun:stun.l.google.com:19302"
-                   },
-                   {
-                        urls:"turn:43.241.146.55:3478",
-                        username:"neelmakadiya",
-                        credential:"123456"
-                   }    
+                    },
+                    {
+                        urls:"stun:stun.services.mozilla.com",
+                        username: "louis@mozilla.com", 
+                        credential: "webrtcdemo"
+                    },
+                    {
+                        urls:"turn:numb.viagenie.ca:80",
+                        username:username_stun,
+                        credential:passsword_stun
+                    },
+                     {
+                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
+                        username:username_stun,
+                        credential:passsword_stun
+                    }   
                 ],
             },
             stream,
@@ -166,17 +176,27 @@ const AudioChannel = (props) => {
     function addPeer(incomingSignal, callerID, stream) {
         const peer = new Peer({
             initiator: false,
-            trickle: false,
+            trickle: true,
               config: {
               iceServers: [
-                     {
+                    {
                         urls:"stun:stun.l.google.com:19302"
-                   },
-                   {
-                        urls:"turn:43.241.146.55:3478",
-                        username:"neelmakadiya",
-                        credential:"123456"
-                   }
+                    },
+                    {
+                        urls:"stun:stun.services.mozilla.com",
+                        username: "louis@mozilla.com", 
+                        credential: "webrtcdemo"
+                    },
+                    {
+                        urls:"turn:numb.viagenie.ca:80",
+                        username:username_stun,
+                        credential:passsword_stun
+                    },
+                     {
+                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
+                        username:username_stun,
+                        credential:passsword_stun
+                    }
                 ],
             },
             stream,
