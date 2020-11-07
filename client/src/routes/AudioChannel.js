@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
 import{ Card,CardContent,CardMedia,Button,Typography} from '@material-ui/core';
 import { v1 as uuid } from "uuid";
+require('dotenv').config();
 
 const Container = styled.div`
     padding: 20px;
@@ -130,23 +131,33 @@ const AudioChannel = (props) => {
         })
     }
 
+    const username_stun=process.env.USER_NAME || "nmakadiya1@gmail.com";
+    const passsword_stun=process.env.PASSWORD || "123456789";
+
+    console.log("Changed : ",username_stun,passsword_stun);
+
      function createPeer(userToSignal, callerID, stream) {
         const peer = new Peer({
             initiator: true,
             trickle: false,
               config: {
-                iceServers: [
-                    {
-                        urls: "stun:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+               iceServers: [
+                     {
+                        urls:"stun:numb.viagenie.ca:443",
+                        username:username_stun,
+                        credential:passsword_stun
                     },
                     {
-                        urls: "turn:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        urls:"turn:numb.viagenie.ca:80",
+                        username:username_stun,
+                        credential:passsword_stun
+                    },
+                     {
+                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
+                        username:username_stun,
+                        credential:passsword_stun
                     }
-                ]
+                ],
             },
             stream,
         });
@@ -164,18 +175,23 @@ const AudioChannel = (props) => {
             initiator: false,
             trickle: false,
               config: {
-                iceServers: [
-                    {
-                        urls: "stun:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+              iceServers: [
+                     {
+                        urls:"stun:numb.viagenie.ca:443",
+                        username:username_stun,
+                        credential:passsword_stun
                     },
                     {
-                        urls: "turn:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
+                        urls:"turn:numb.viagenie.ca:80",
+                        username:username_stun,
+                        credential:passsword_stun
+                    },
+                     {
+                        urls:"turn:numb.viagenie.ca:443?transport=tcp",
+                        username:username_stun,
+                        credential:passsword_stun
                     }
-                ]
+                ],
             },
             stream,
         })
