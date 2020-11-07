@@ -132,7 +132,7 @@ const AudioChannel = (props) => {
     }
 
     const username_stun=process.env.USER_NAME || "nmakadiya1@gmail.com";
-    const passsword_stun=process.env.PASSWORD || "123456789";
+    const passsword_stun=process.env.PASSWORD || "12345678";
 
     console.log("Changed : ",username_stun,passsword_stun);
 
@@ -142,10 +142,13 @@ const AudioChannel = (props) => {
             trickle: false,
               config: {
                iceServers: [
-                     {
-                        urls:"stun:numb.viagenie.ca:443",
-                        username:username_stun,
-                        credential:passsword_stun
+                    {
+                        urls:"stun:stun.l.google.com:19302"
+                    },
+                    {
+                        urls:"stun:stun.services.mozilla.com",
+                        username: "louis@mozilla.com", 
+                        credential: "webrtcdemo"
                     },
                     {
                         urls:"turn:numb.viagenie.ca:80",
@@ -156,7 +159,7 @@ const AudioChannel = (props) => {
                         urls:"turn:numb.viagenie.ca:443?transport=tcp",
                         username:username_stun,
                         credential:passsword_stun
-                    }
+                    }   
                 ],
             },
             stream,
@@ -176,10 +179,13 @@ const AudioChannel = (props) => {
             trickle: false,
               config: {
               iceServers: [
-                     {
-                        urls:"stun:numb.viagenie.ca:443",
-                        username:username_stun,
-                        credential:passsword_stun
+                    {
+                        urls:"stun:stun.l.google.com:19302"
+                    },
+                    {
+                        urls:"stun:stun.services.mozilla.com",
+                        username: "louis@mozilla.com", 
+                        credential: "webrtcdemo"
                     },
                     {
                         urls:"turn:numb.viagenie.ca:80",
