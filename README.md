@@ -16,12 +16,11 @@ You can find the repo for the Text Editor [here](https://github.com/hemang11/Sma
 > To Start the server run the following commands once you have cloned the repository
 > 
 ```bash
-cd server
 npm install
 node server.js
 ```
 
-> Now move in the client folder and run the following
+> Now open another terminal and run the following commands
 > 
 ```bash
 cd client
