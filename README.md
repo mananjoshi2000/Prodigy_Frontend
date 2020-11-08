@@ -1,18 +1,29 @@
 # Smart-Doc
-Clone It.
-Open the ternimal in this folder and run the folllowing Command.
+#### A Collaborative text editor with video chat functionality
+This is a Simple yet effective Text collaboration platform where people can type and discuss at the same time - developed by using `React , Node , Express and mongoDB`
 
+You can find the repo for the Text Editor [here](https://github.com/hemang11/Smart-Doc-Editor)
+
+#### Development
+- You need Node & Yarn to start the development environment. Download them here - [Node](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/).
+
+
+- Clone the repository and run the following commands
+
+> To Start the server run the following commands once you have cloned the repository
+> 
+```bash
+cd server
 npm install
-
 node server.js
+```
 
-Now, open another terminal in this folder and run following command.
-
+> Now move in the client folder and run the following
+> 
+```bash
 cd client
-
-npm install
-
+npm install 
 yarn start
+```
 
 
-Afetr creting a doc you can copy the url and open it in other tab so, You can test join call and collaboration feature.
