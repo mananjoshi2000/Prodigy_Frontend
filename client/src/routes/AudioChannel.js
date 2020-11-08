@@ -3,7 +3,7 @@ import io from "socket.io-client";
 import Peer from "simple-peer";
 import styled from "styled-components";
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
-import{ Card,CardContent,CardMedia,Button,Typography} from '@material-ui/core';
+import{ Card, List, ListItem,Button,Typography, Grid, Divider, ListItemText} from '@material-ui/core';
 import { v1 as uuid } from "uuid";
 require('dotenv').config();
 
@@ -28,13 +28,13 @@ const Video = (props) => {
         props.peer.peer.on("stream", stream => {
             ref.current.srcObject = stream;
         })
-    }, []);
+    });
 
     return (
-        <Container>
-            <StyledVideo playsInline autoPlay ref={ref} />
+        <div>
+            <StyledVideo playsInline autoPlay ref={ref} style={{width:100+'%'}} />
             <Typography>{props.peer.name}</Typography>
-        </Container>
+        </div>
         
     );
 }
@@ -225,22 +225,34 @@ const AudioChannel = (props) => {
     }
    
     return (
-        <Container>
-            <Button variant="outlined" color="primary" onClick={HandleAudio}>
-                {isAudio?"Leave Audio":"Join Audio"}
-            </Button>
+         <Container style={{height:90+'vh'}}>
+            <List>
+                <ListItem>
+                    <Button variant="contained" color="primary" onClick={HandleAudio}>
+                        {isAudio?"Leave Stream":"Join Stream"}
+                    </Button>
+                    </ListItem>
 
-            {isAudio?<div>
-                <StyledVideo muted ref={userVideo} autoPlay playsInline />
-                {console.log("Log : ",peers,peersRef.current)}
-                <Typography>{"My Name : "+userCookie.name}</Typography>
-               
-                {peersRef.current.map((peer, index) => {
-                return (
-                        <Video key={peer.peerID} peer={peer} />
-                );
-            })}
-            </div>:null}
+                    {isAudio?<List>
+                    <ListItem className="video-list">
+                        <div>
+                            <StyledVideo muted playsInline autoPlay ref={userVideo} style={{width:100+'%'}}/>
+                            {console.log("Log : ",peers,peersRef.current)}
+                            <Typography>You</Typography>
+                        </div>
+                    </ListItem>
+                            {console.log('PeerRef : ',peersRef.current)}
+                            {peersRef.current.map((peer, index) => {
+                            return (
+
+                                <ListItem className="video-list" key={peer.peerID}>
+                                    <Video key={peer.peerID} peer={peer} />
+                                </ListItem>
+                            );
+                        })}
+                        </List>:null}
+            </List> 
+           
             
         </Container>
     );
