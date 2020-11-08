@@ -1,12 +1,17 @@
 # Smart-Doc
 Clone It.
-Open the ternimal in this folder.
-Then run the folllowing Command.
+Open the ternimal in this folder and run the folllowing Command.
+
 npm install
+
 node server.js
+
 Now, open another terminal in this folder and run following command.
+
 cd client
+
 npm install
+
 yarn start
 
 
