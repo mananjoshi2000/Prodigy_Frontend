@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-
+import App from './App';
 import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import { QuillBinding } from 'y-quill'
@@ -90,20 +90,18 @@ export default function Room(props) {
                     <Grid item xs={2} style={{maxHeight:100+'vh'}}>
                         <AudioChannel room={roomID} style={{height:'inherit'}}/>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={7}>
                         <Card>
                             <div id="editor"></div>
                         </Card>
                     </Grid>
                     <Grid 
                         item 
-                        xs={2} 
+                        xs={3} 
                         style={{height:100+'%'}}
                         alignItems="end"
                     >
-                        <div style={{backgroundColor:"white",height:50+'vh'}}>
-                            CHAT   
-                        </div>
+                        <App/>
                     </Grid>
                 </Grid>
             </div>
