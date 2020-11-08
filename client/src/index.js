@@ -37,13 +37,16 @@ const Connect = () => {
  return (
     <CookiesProvider>
           <React.StrictMode>
-            {user ? <Home/> : <GoogleLogin
-    clientId={client_Id}
-    buttonText="Login"
-    onSuccess={responseGoogle}
-    onFailure={fail}
-    
-  />}
+            {user ? <Home/> : 
+            <div style={{margin:30+'px'}}>
+              <GoogleLogin
+                clientId={client_Id}
+                onSuccess={responseGoogle}
+                onFailure={fail}
+              >
+                <strong>Sign in with Google</strong>
+              </GoogleLogin>
+           </div>}
           </React.StrictMode>
     </CookiesProvider>
   );
