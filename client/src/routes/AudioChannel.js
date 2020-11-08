@@ -236,7 +236,7 @@ const AudioChannel = (props) => {
                     {isAudio?<List>
                     <ListItem className="video-list">
                         <div>
-                            <StyledVideo playsInline autoPlay ref={userVideo} style={{width:100+'%'}}/>
+                            <StyledVideo muted playsInline autoPlay ref={userVideo} style={{width:100+'%'}}/>
                             {console.log("Log : ",peers,peersRef.current)}
                             <Typography>You</Typography>
                         </div>
