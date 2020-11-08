@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-
+import Card from '@material-ui/core/Card';
 
 import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
@@ -79,27 +79,33 @@ export default function Room(props) {
     
 
     return (
-        <div>
-            <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            >
-                <Grid item xs={4}>
-                    <AudioChannel room={roomID}/>
+            <div>
+                <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                spacing={1}
+                >
+                    <Grid item xs={2} style={{maxHeight:100+'vh'}}>
+                        <AudioChannel room={roomID} style={{height:'inherit'}}/>
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Card>
+                            <div id="editor"></div>
+                        </Card>
+                    </Grid>
+                    <Grid 
+                        item 
+                        xs={2} 
+                        style={{height:100+'%'}}
+                        alignItems="end"
+                    >
+                        <div style={{backgroundColor:"white",height:50+'vh'}}>
+                            CHAT   
+                        </div>
+                    </Grid>
                 </Grid>
-                <Grid item xs={8}>
-                    <div id="editor"></div>
-                </Grid>
-            </Grid>
-        </div>
+            </div>
     )
 }
-
-
-
-
-
-
-
