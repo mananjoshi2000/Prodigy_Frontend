@@ -4,6 +4,8 @@ This is a Simple yet effective Text collaboration platform where people can type
 
 You can find the repo for the Text Editor [here](https://github.com/hemang11/Smart-Doc-Editor)
 
+![](https://github.com/hemang11/Smart-Doc/blob/main/smart-doc.png?raw=true)
+
 #### Development
 - You need Node & Yarn to start the development environment. Download them here - [Node](https://nodejs.org/en/), [Yarn](https://yarnpkg.com/).
 
