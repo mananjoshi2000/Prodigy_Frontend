@@ -9,12 +9,13 @@ import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import App from './App';
 import * as Y from 'yjs'
 import { WebsocketProvider } from 'y-websocket'
 import { QuillBinding } from 'y-quill'
 import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
+import Chat from './Chat'
+
 
 export default function Room(props) {
     const roomID = props.match.params.roomID;
@@ -77,7 +78,8 @@ export default function Room(props) {
         window.example = { provider, ydoc, type, binding, Y }
     });
     
-
+  
+   
     return (
             <div>
                 <Grid
@@ -101,7 +103,7 @@ export default function Room(props) {
                         style={{height:100+'%'}}
                         alignItems="end"
                     >
-                        <App/>
+                        <Chat roomID={roomID}/>
                     </Grid>
                 </Grid>
             </div>

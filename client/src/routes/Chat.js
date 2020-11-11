@@ -1,29 +1,78 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect,useRef} from 'react'
 import './Chat.css'
 import {Avatar,IconButton} from "@material-ui/core";
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined';
 import AddIcCallOutlinedIcon from '@material-ui/icons/AddIcCallOutlined';
-import axios from './axios';
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
+import io from "socket.io-client";
+import axios from "axios";
 
  
-function Chat({ messages}) {
+function Chat(props) {
     const cookies = new Cookies();
     const userCookie=cookies.get('userCookie');
     const userName=userCookie.name;
-    console.log(userName);
+    const socketRef = useRef();
     const [input,setInput] = useState('');
+    const [messages,setMessages]=useState([]);
+    console.log("Test");
 
-    const sendMessage = async (e)=>{
-        e.preventDefault();
-        await axios.post('/messages/new', {
-            message:input,
-	        name: userName, // add the authorized user's name
-            timestamp: "Just now", //add the timestamp from the authorized 
-	        received: true                
+    const url = (process.env.NODE_ENV==="production" ? "https://safe-anchorage-70536.herokuapp.com/" : "http://localhost:5000/");
+    console.log(process.env.NODE_ENV,url);
+
+    const userDetail={
+        room:props.roomID,
+        name:userCookie.name,
+        GID:userCookie.GID,
+        imgURI:"123"
+    }
+
+    window.onbeforeunload =()=>{
+        if(socketRef.current){
+            socketRef.current.close();
+        } 
+    }
+
+    useEffect(() => {
+       
+        axios.get(`${url}chat?room=${props.roomID}`).then((res)=>{
+            console.log(res.data);
+            setMessages(res.data);
+        })
+
+
+        socketRef.current=io.connect(url);
+        socketRef.current.emit("join chat room",userDetail);
+
+        console.log("Inside UseEffect : ",messages);
+
+        socketRef.current.on('recevied msg',(data)=>{
+            console.log("yes received..");
+            setMessages((msgs)=>[...msgs,data]);
+            console.log(messages);
         });
+
+    },[]);
+
+    
+
+    const sendMessage = (e)=>{
+        e.preventDefault();
+        const obj={
+            userName,
+            photoUri:"123",
+            msg:input,
+            time:new Date,
+            room:props.roomID
+        }
+        socketRef.current.emit('send msg',obj);
+        axios.post(`${url}chat`,obj).then((res)=>{
+            console.log(res);
+        })
         setInput('');
     }
+
+
     return (
         <div className = 'chat'>
             <div className="chat__header">
@@ -32,13 +81,15 @@ function Chat({ messages}) {
             </div>
 
             <div className="chat__body">
-                {messages.map(message=>(
-                    <p className={`chat__message ${userCookie.name === message.name && 'chat__receiver'}`}>
-                        <span className='chat__name'>{message.name}</span>
-                        {message.message}
-                        <span className='chat__timestamp'>{message.timestamp}</span>
-                    </p>
-                ))}
+                {messages.map((message,i)=>{
+                    return(
+                        <p key={i} className={`chat__message ${userCookie.name === message.userName && 'chat__receiver'}`}>
+                            <span className='chat__name'>{message.userName}</span>
+                            {message.msg}
+                            <span className='chat__timestamp'>{message.time}</span>
+                        </p>
+                    )
+                })}
                 
             </div>
             <div className='chat__footer'>
