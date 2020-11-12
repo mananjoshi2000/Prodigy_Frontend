@@ -15,7 +15,7 @@ import { QuillBinding } from 'y-quill'
 import Quill from 'quill'
 import QuillCursors from 'quill-cursors'
 import Chat from './Chat'
-
+import axios from "axios";
 
 export default function Room(props) {
     const roomID = props.match.params.roomID;
@@ -28,6 +28,25 @@ export default function Room(props) {
     const userCookie=cookies.get('userCookie');
 
     const username=userCookie.name;
+
+    const obj={
+            userName:userCookie.name,
+            photoUri:"123",
+            GID:userCookie.GID,
+            doc_name:"xyz",
+            doc_id:roomID,
+    }
+
+    const url = (process.env.NODE_ENV==="production" ? "https://thawing-dawn-49846.herokuapp.com/" : "http://localhost:5000/");
+    
+    useEffect(()=>{
+        console.log(obj);
+        axios.post(`${url}user_doc`,obj).then((res)=>{
+            console.log(res);
+        })
+    },[]);
+
+   
 
     const provider = new WebsocketProvider('wss://shielded-sierra-61478.herokuapp.com',`${roomID}`, ydoc)
     const type = ydoc.getText(`${roomID}`);
