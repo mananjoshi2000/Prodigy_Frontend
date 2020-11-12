@@ -17,7 +17,7 @@ function Chat(props) {
     const [messages,setMessages]=useState([]);
     console.log("Test");
 
-    const url = (process.env.NODE_ENV==="production" ? "https://safe-anchorage-70536.herokuapp.com/" : "http://localhost:5000/");
+    const url = (process.env.NODE_ENV==="production" ? "https://thawing-dawn-49846.herokuapp.com/" : "http://localhost:5000/");
     console.log(process.env.NODE_ENV,url);
 
     const userDetail={
