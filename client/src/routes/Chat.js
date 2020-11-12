@@ -66,9 +66,11 @@ function Chat(props) {
             room:props.roomID
         }
         socketRef.current.emit('send msg',obj);
-        axios.post(`${url}chat`,obj).then((res)=>{
-            console.log(res);
-        })
+    //     axios.post(`${url}chat`,obj,{headers: {
+    //     'Content-Type': 'application/json'
+    //   }}).then((res)=>{
+    //         console.log(res);
+    //     })
         setInput('');
     }
 
