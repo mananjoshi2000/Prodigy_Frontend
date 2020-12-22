@@ -1,8 +1,9 @@
 import React, { useState ,useEffect,useRef} from 'react'
 import './Chat.css'
-import {Avatar,IconButton} from "@material-ui/core";
+import {Avatar,IconButton, Button} from "@material-ui/core";
 import EmojiEmotionsOutlinedIcon from '@material-ui/icons/EmojiEmotionsOutlined';
-import AddIcCallOutlinedIcon from '@material-ui/icons/AddIcCallOutlined';
+import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
+import AttachFile from '@material-ui/icons/AttachFile';
 import { CookiesProvider, Cookies,useCookies } from 'react-cookie';
 import io from "socket.io-client";
 import axios from "axios";
@@ -17,14 +18,15 @@ function Chat(props) {
     const [messages,setMessages]=useState([]);
     console.log("Test");
 
-    const url = (process.env.NODE_ENV==="production" ? "https://thawing-dawn-49846.herokuapp.com/" : "http://localhost:5000/");
+    // const url = (process.env.NODE_ENV==="production" ? "https://thawing-dawn-49846.herokuapp.com/" : "http://localhost:5000/");
+    const url = "https://thawing-dawn-49846.herokuapp.com/"
     console.log(process.env.NODE_ENV,url);
 
     const userDetail={
         room:props.roomID,
         name:userCookie.name,
         GID:userCookie.GID,
-        imgURI:"123"
+        imgURI:userCookie.url
     }
 
     window.onbeforeunload =()=>{
@@ -55,7 +57,15 @@ function Chat(props) {
     },[]);
 
     
-
+    const toggleChat = ()=>{
+        var disp = document.querySelector('.chat__window').style.display;
+        if(disp === 'none')
+        {
+            document.querySelector('.chat__window').style.display = 'flex';
+        }
+        else
+        document.querySelector('.chat__window').style.display = 'none';
+    }
     const sendMessage = (e)=>{
         e.preventDefault();
         const obj={
@@ -76,10 +86,12 @@ function Chat(props) {
 
 
     return (
+
         <div className = 'chat'>
+          <div className = 'chat__window'>
             <div className="chat__header">
             <Avatar  src = ""/>
-            <p>Room Name</p>
+            <p>General Chat</p>
             </div>
 
             <div className="chat__body">
@@ -103,12 +115,25 @@ function Chat(props) {
                     </input>
                     <button onClick = {sendMessage} type = 'submit'>Send message</button>
                 </form>
-                <IconButton>
-                  <AddIcCallOutlinedIcon></AddIcCallOutlinedIcon>
-                </IconButton>
+                <input type='file' multiple hidden id = 'file'></input>
+                <label htmlFor='file'>
+                <IconButton color = 'primary' component = "span">
+                  <AttachFile>
+                  </AttachFile>
+                </IconButton>  
+                </label>
+                
+                
             </div>
-            
-        </div>
+        
+             
+          </div>
+          <div className='chat__modal' onClick={toggleChat}>
+             <IconButton>
+                 <ChatBubbleOutline/>
+             </IconButton>
+            </div>
+        </div>  
     )
 }
 
