@@ -1,5 +1,5 @@
 
-# Smart-Doc
+# Prodigy - A Smart Doc
 #### A Collaborative text editor with video chat functionality
 This is a Simple yet effective Text collaboration platform where people can type and discuss at the same time - developed by using `React , Node , Express and mongoDB`
 
